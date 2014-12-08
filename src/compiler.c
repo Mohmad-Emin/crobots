@@ -12,6 +12,7 @@
 /* compiler.c - compiler routines in support of grammar.c */
 
 #include <stdio.h>
+#include "lexanal.h"
 
 #include "crobots.h"
 /* EXT causes externals to be declared without extern keyword in compiler.h */
@@ -35,7 +36,7 @@ char *s;
 }
 
 
-char *malloc();
+/* char *malloc(); */
 
 
 /* init_comp - initializes the compiler for one file */
@@ -91,6 +92,9 @@ init_comp()
     *(func_stack + (i * ILEN)) = '\0';
     *(op_stack + i) = 0;
   }
+
+  yyin = f_in;
+  yyout = f_out;
 
 }
 

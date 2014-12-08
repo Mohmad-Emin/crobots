@@ -1,6 +1,7 @@
 D			[0-9]
 L			[a-zA-Z_]
 
+
 %{
 
 /*****************************************************************************/
@@ -19,12 +20,6 @@ L			[a-zA-Z_]
 #include "compiler.h"
 
 /* redefine i/o */
-#undef 	input
-#define	input()  	lexgetc()
-#undef 	unput
-#define	unput(c) 	lexungetc(c)
-#undef 	output   
-#define output(c)	lexputc(c)
 #undef ECHO
 #define ECHO fprintf(f_out,"%s",yytext)
 
@@ -33,8 +28,14 @@ int count();
 
 %}
 
+%x C_COMMENT
+
+
 %%
-"/*"			{ comment(); }
+"/*"            { BEGIN(C_COMMENT); }
+<C_COMMENT>"*/" { BEGIN(INITIAL); }
+<C_COMMENT>.    { }
+
 
 "auto"			{ count(); return(AUTO); }
 "break"			{ count(); return(BREAK); }
@@ -108,28 +109,6 @@ yywrap()
 	return(1);
 }
 
-comment()
-{
-	char c, c1;
-
-	output('/');
-	output('*');
-
-loop:
-	while ((c = input()) != '*' && c != 0)
-		output(c);
-
-	if ((c1 = input()) != '/' && c != 0)
-	{
-		unput(c1);
-		goto loop;
-	}
-
-	if (c != 0) {
-		output('*');
-		output(c1);
-	}
-}
 
 
 count()
@@ -150,24 +129,6 @@ count()
 
 /* the i/o routines depend on f_in and f_out to be opened elsewhere */
 
-int lexgetc()
-{
-  int c;
-  c = fgetc(f_in);
-  return ((c == EOF) ? 0 : c);
-}
-
-lexungetc(c)
-int c;
-{
-  ungetc(c,f_in);
-}
-
-lexputc(c)
-int c;
-{
-  fputc(c,f_out);
-}
 
 /* these two dummy routines for lex's debug options */
 allprint() {}

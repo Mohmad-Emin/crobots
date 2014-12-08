@@ -249,7 +249,7 @@ long c_loc_y()
 long c_rand()
 {
   int rand();
-  int srand(); 	/* should be seeded elsewhere */
+/*  int srand(); */	/* should be seeded elsewhere */
   long limit;
 
   limit = pop();

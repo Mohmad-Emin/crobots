@@ -9,6 +9,12 @@
 /*                                                                           */
 /*****************************************************************************/
 
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+
+#define YY_NO_INPUT
 /* common defines */
 
 /* note-the INIT flag (or lack of it) causes extern for all but one module */
