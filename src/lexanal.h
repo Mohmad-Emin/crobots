@@ -309,7 +309,7 @@ extern int yylex (void);
 #undef YY_DECL
 #endif
 
-#line 105 "lexanal.l"
+#line 104 "lexanal.l"
 
 
 #line 316 "lexanal.h"

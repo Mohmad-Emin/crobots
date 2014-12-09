@@ -33,7 +33,7 @@ extern long pop();
 /* c_scan - radar scanning function - note degrees instead of radians */
 /*          expects two agruments on stack, degree and resoultion */
 
-long c_scan() 
+void c_scan( void ) 
 {
   register int i;
   long degree;
@@ -117,7 +117,7 @@ long c_scan()
 /* c_cannon - fire a shot */
 /*            expects two agruments on stack, degree distance */
 
-long c_cannon() 
+void c_cannon( void ) 
 {
   long degree;
   long distance;
@@ -182,7 +182,7 @@ long c_cannon()
 /* c_drive - start the propulsion system */
 /*           expect two agruments, degrees & speed */
 
-long c_drive() 
+void c_drive( void ) 
 {
   long degree;
   long speed; 
@@ -212,7 +212,7 @@ long c_drive()
 
 /* c_damage - report on damage sustained */
 
-long c_damage()
+void c_damage( void )
 {
   push((long) cur_robot->damage);
 }
@@ -220,7 +220,7 @@ long c_damage()
 
 /* c_speed - report current speed */
 
-long c_speed()
+void c_speed( void )
 {
   push((long) cur_robot->speed);
 }
@@ -228,7 +228,7 @@ long c_speed()
 
 /* c_loc_x - report current x location */
 
-long c_loc_x()
+void c_loc_x( void )
 {
   push((long) cur_robot->x / CLICK);
 }
@@ -236,9 +236,8 @@ long c_loc_x()
 
 /* c_loc_y - report current y location */
 
-long c_loc_y()
+void c_loc_y( void )
 {
-  int y;
   push((long) cur_robot->y / CLICK);
 }
 
@@ -246,7 +245,7 @@ long c_loc_y()
 /* c_rand - return a random number between 0 and limit */
 /*          expect one argument, limit */
 
-long c_rand()
+void c_rand( void )
 {
   int rand();
 /*  int srand(); */	/* should be seeded elsewhere */
@@ -264,7 +263,7 @@ long c_rand()
 /* c_sin - return sin(degrees) * SCALE */
 /*         expect one agrument, degrees */
 
-long c_sin()
+void c_sin( void )
 {
   long degree;
   long lsin();
@@ -279,7 +278,7 @@ long c_sin()
 /* c_cos - return cos(degrees) * SCALE */
 /*         expect one agrument, degrees */
 
-long c_cos()
+void c_cos( void )
 {
   long degree;
   long lcos();
@@ -294,7 +293,7 @@ long c_cos()
 /* c_tan - return tan(degrees) * SCALE */
 /*         expect one agrument, degrees */
 
-long c_tan()
+void c_tan( void )
 {
   long degree;
 
@@ -308,7 +307,7 @@ long c_tan()
 /* c_atan - return atan(x) */
 /*          expect one agrument, ratio * SCALE */
 
-long c_atan()
+void c_atan( void )
 {
   long degree;
   long ratio;
@@ -323,7 +322,7 @@ long c_atan()
 /* c_sqrt - return sqrt(x) */
 /*          expect one agrument, x */
 
-long c_sqrt()
+void c_sqrt( void )
 {
   long x;
 

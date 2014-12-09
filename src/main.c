@@ -20,7 +20,6 @@
 
 #ifdef UNIX
 #include <signal.h>
-extern int catch_int();
 #endif
 #ifdef LATTICE
 int _stack = 6000;  /* Lattice C: give more stack than default of 2048 */
@@ -34,9 +33,7 @@ char *version   = "CROBOTS - version 1.1, December, 1985\n";
 char *copyright = "Copyright 1985 by Tom Poindexter, All rights reserved.\n";
 
 
-main(argc,argv)
-int argc;
-char *argv[];
+int main( int argc, char **argv )
 {
   long limit = CYCLE_LIMIT;
   int matches = 0;
@@ -54,7 +51,7 @@ char *argv[];
 /* bj no longer needed */
 /*  int srand(); */
 
-
+  
   /* print version, copyright notice, GPL notice */
 
   fprintf(stderr,"\n");
@@ -157,7 +154,7 @@ char *argv[];
 
     /* debug the first robot listed */
     if (debug_only) {
-      trace(files[0]); /* trace only first source */
+      cpu_trace(files[0]); /* trace only first source */
     }
     else
 
@@ -190,11 +187,7 @@ char *argv[];
 
 
 /* comp - only compile the files with full info */
-
-comp(f,n)
-
-char *f[];
-int n;
+void comp( char **f, int n )
 {
   int i;
 
@@ -229,10 +222,7 @@ int n;
 
 /* play - watch the robots compete */
 
-play(f,n)
-
-char *f[];
-int n;
+void play( char **f, int n )
 {
   int num_robots = 0;
   int robotsleft;
@@ -290,8 +280,8 @@ int n;
 
 #ifdef UNIX
   /* catch interrupt */
-  if (signal(SIGINT,SIG_IGN) != SIG_IGN)
-    signal(SIGINT,catch_int);
+/*  if (signal(SIGINT,SIG_IGN) != SIG_IGN)
+    signal(SIGINT,catch_int); */
 #endif
 
   rand_pos(num_robots);
@@ -371,12 +361,7 @@ int n;
 
 /* match - run a series of matches */
 
-match(m,l,f,n)
-
-int m;
-long l;
-char *f[];
-int n;
+void match( int m, long l, char **f, int n )
 {
   int num_robots = 0;
   int robotsleft;
@@ -545,9 +530,7 @@ int n;
 /*           dependent on MAXROBOTS <= 4 */
 /*            put robots in separate quadrant */
 
-rand_pos(n)
-
-int n;
+void rand_pos( int n )
 {
   int i, k;
   int quad[4];
@@ -568,20 +551,15 @@ int n;
       }
       quad[k] = 1;
     }
-    robots[i].org_x = robots[i].x = 
-       (rand() % (MAX_X * CLICK / 2)) + ((MAX_X * CLICK / 2) * (k%2));
-    robots[i].org_y = robots[i].y = 
-       (rand() % (MAX_Y * CLICK / 2)) + ((MAX_Y * CLICK / 2) * (k<2));
+    robots[i].org_x = robots[i].x = (rand() % (MAX_X * CLICK / 2)) + ((MAX_X * CLICK / 2) * (k%2));
+    robots[i].org_y = robots[i].y = (rand() % (MAX_Y * CLICK / 2)) + ((MAX_Y * CLICK / 2) * (k<2));
   }
 }
 
 
 
 /* trace - compile and run the robot in debug mode */
-
-trace(f)
-
-char *f;
+void cpu_trace( char *f )
 {
   int c = 1; 
 
@@ -605,8 +583,8 @@ char *f;
     robot_go(&robots[0]);
 
   /* randomly place robot */
-  robots[0].x = rand() % MAX_X * 100;
-  robots[0].y = rand() % MAX_Y * 100;
+  robots[0].x = rand() % MAX_X * CLICK;
+  robots[0].y = rand() % MAX_Y * CLICK;
 
   /* setup a dummy robot at the center */
   robots[1].x = MAX_X / 2 * 100;
@@ -700,7 +678,7 @@ int i;
 #ifdef UNIX
 /* catch_int - catch the interrupt signal and die, cleaning screen */
 
-catch_int()
+void catch_int( void )
 {
   int i;
 /* 

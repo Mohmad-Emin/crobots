@@ -60,7 +60,7 @@ static int col_3;    /* column for cpu cycle count*/
 
 /* init_disp - initialize display */
 
-init_disp()
+void init_disp( void )
 {
   initscr();
   clear();
@@ -73,7 +73,7 @@ init_disp()
 
 /* end_disp - cleanup and end display */
 
-end_disp()
+void end_disp( void )
 {
   nocrmode();
   echo();
@@ -85,7 +85,7 @@ end_disp()
 
 /* draw_field - draws the playing field and status boxes */
 
-draw_field()
+void draw_field( void )
 {
   int i, j;
 
@@ -152,9 +152,7 @@ draw_field()
 
 /* plot_robot - plot the robot position */
 
-plot_robot(n)
-
-int n;
+void plot_robot( int n )
 {
   int i, k;
   register int new_x, new_y;
@@ -194,10 +192,7 @@ int n;
 
 /* plot_miss - plot the missile position */
 
-plot_miss(r,n)
-
-int r;
-int n;
+void plot_miss( int r, int n)
 {
   int i, k;
   register int new_x, new_y;
@@ -242,10 +237,7 @@ int n;
 
 /* plot_exp - plot the missile exploding */
 
-plot_exp(r,n)
-
-int r;
-int n;
+void plot_exp(int r, int n)
 {
   int c, i, p, hold_x, hold_y, k;
   register int new_x, new_y;
@@ -312,9 +304,7 @@ int n;
 
 /* robot_stat - update status info */
 
-robot_stat(n)
-
-int n;
+void robot_stat( int n )
 {
   int changed = 0;
 
@@ -355,9 +345,7 @@ int n;
 }
 
 
-show_cycle(l)
-
-long l;
+void show_cycle( long l )
 {
   move(LINES-1,col_3);
   printw("%7ld",l);

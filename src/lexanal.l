@@ -24,7 +24,6 @@ L			[a-zA-Z_]
 #define ECHO fprintf(f_out,"%s",yytext)
 
 long atol();
-int count();
 
 %}
 
@@ -104,14 +103,12 @@ int count();
 
 %%
 
-yywrap()
+int yywrap( void )
 {
 	return(1);
 }
 
-
-
-count()
+void count( void )
 {
 	int i;
 
@@ -126,12 +123,7 @@ count()
 	ECHO;
 }
 
-
-/* the i/o routines depend on f_in and f_out to be opened elsewhere */
-
-
 /* these two dummy routines for lex's debug options */
-allprint() {}
-
-sprint() {} 
+void allprint( void ) {}
+void sprint( void ) {} 
 

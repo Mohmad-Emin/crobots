@@ -11,7 +11,7 @@ DOSA = main.c grammar.c lexanal.c compiler.c cpu.c intrins.c display.c screena.c
 
 # Xenix cc flags: optimize(O), omit stack checking(K), separate text and data(i)
 
-CFLAGS = -O2 -Wall -DUNIX -g
+CFLAGS = -O2 -Wall -DUNIX 
 LIBS = -lm -lcurses
 
 # note - grammar.c and lexanal.c: both yacc (grammar.y) and lex (lexanal.l)

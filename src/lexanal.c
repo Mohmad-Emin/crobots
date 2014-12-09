@@ -536,10 +536,9 @@ char *yytext;
 #define ECHO fprintf(f_out,"%s",yytext)
 
 long atol();
-int count();
 
 
-#line 543 "lex.yy.c"
+#line 542 "lex.yy.c"
 
 #define INITIAL 0
 #define C_COMMENT 1
@@ -722,9 +721,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 34 "lexanal.l"
+#line 33 "lexanal.l"
 
-#line 728 "lex.yy.c"
+#line 727 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -809,77 +808,77 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 35 "lexanal.l"
+#line 34 "lexanal.l"
 { BEGIN(C_COMMENT); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 36 "lexanal.l"
+#line 35 "lexanal.l"
 { BEGIN(INITIAL); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "lexanal.l"
+#line 36 "lexanal.l"
 { }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 40 "lexanal.l"
+#line 39 "lexanal.l"
 { count(); return(AUTO); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 41 "lexanal.l"
+#line 40 "lexanal.l"
 { count(); return(BREAK); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 42 "lexanal.l"
+#line 41 "lexanal.l"
 { count(); return(ELSE); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 43 "lexanal.l"
+#line 42 "lexanal.l"
 { count(); return(EXTERN); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 44 "lexanal.l"
+#line 43 "lexanal.l"
 { count(); return(FOR); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 45 "lexanal.l"
+#line 44 "lexanal.l"
 { count(); return(IF); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 46 "lexanal.l"
+#line 45 "lexanal.l"
 { count(); return(INT); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 47 "lexanal.l"
+#line 46 "lexanal.l"
 { count(); return(LONG); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 48 "lexanal.l"
+#line 47 "lexanal.l"
 { count(); return(REGISTER); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 49 "lexanal.l"
+#line 48 "lexanal.l"
 { count(); return(RETURN); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 50 "lexanal.l"
+#line 49 "lexanal.l"
 { count(); return(WHILE); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 52 "lexanal.l"
+#line 51 "lexanal.l"
 { count(); 
 				strncpy(last_ident,yytext,ILEN-1);
 				last_ident[ILEN-1] = '\0';
@@ -887,228 +886,228 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 57 "lexanal.l"
+#line 56 "lexanal.l"
 { count(); 
 				kk = atol(yytext);
 				return(CONSTANT); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 61 "lexanal.l"
+#line 60 "lexanal.l"
 { count(); return(RIGHT_ASSIGN); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 62 "lexanal.l"
+#line 61 "lexanal.l"
 { count(); return(LEFT_ASSIGN); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 63 "lexanal.l"
+#line 62 "lexanal.l"
 { count(); return(ADD_ASSIGN); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 64 "lexanal.l"
+#line 63 "lexanal.l"
 { count(); return(SUB_ASSIGN); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 65 "lexanal.l"
+#line 64 "lexanal.l"
 { count(); return(MUL_ASSIGN); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 66 "lexanal.l"
+#line 65 "lexanal.l"
 { count(); return(DIV_ASSIGN); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 67 "lexanal.l"
+#line 66 "lexanal.l"
 { count(); return(MOD_ASSIGN); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 68 "lexanal.l"
+#line 67 "lexanal.l"
 { count(); return(AND_ASSIGN); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 69 "lexanal.l"
+#line 68 "lexanal.l"
 { count(); return(XOR_ASSIGN); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 70 "lexanal.l"
+#line 69 "lexanal.l"
 { count(); return(OR_ASSIGN); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 71 "lexanal.l"
+#line 70 "lexanal.l"
 { count(); return(RIGHT_OP); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 72 "lexanal.l"
+#line 71 "lexanal.l"
 { count(); return(LEFT_OP); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 73 "lexanal.l"
+#line 72 "lexanal.l"
 { count(); return(INC_OP); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 74 "lexanal.l"
+#line 73 "lexanal.l"
 { count(); return(DEC_OP); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 75 "lexanal.l"
+#line 74 "lexanal.l"
 { count(); return(AND_OP); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 76 "lexanal.l"
+#line 75 "lexanal.l"
 { count(); return(OR_OP); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 77 "lexanal.l"
+#line 76 "lexanal.l"
 { count(); return(LE_OP); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 78 "lexanal.l"
+#line 77 "lexanal.l"
 { count(); return(GE_OP); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 79 "lexanal.l"
+#line 78 "lexanal.l"
 { count(); return(EQ_OP); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 80 "lexanal.l"
+#line 79 "lexanal.l"
 { count(); return(NE_OP); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 81 "lexanal.l"
+#line 80 "lexanal.l"
 { count(); return(';'); }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 82 "lexanal.l"
+#line 81 "lexanal.l"
 { count(); return('{'); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 83 "lexanal.l"
+#line 82 "lexanal.l"
 { count(); return('}'); }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 84 "lexanal.l"
+#line 83 "lexanal.l"
 { count(); return(','); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 85 "lexanal.l"
+#line 84 "lexanal.l"
 { count(); return('='); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 86 "lexanal.l"
+#line 85 "lexanal.l"
 { count(); return('('); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 87 "lexanal.l"
+#line 86 "lexanal.l"
 { count(); return(')'); }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 88 "lexanal.l"
+#line 87 "lexanal.l"
 { count(); return('.'); }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 89 "lexanal.l"
+#line 88 "lexanal.l"
 { count(); return('&'); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 90 "lexanal.l"
+#line 89 "lexanal.l"
 { count(); return('!'); }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 91 "lexanal.l"
+#line 90 "lexanal.l"
 { count(); return('~'); }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 92 "lexanal.l"
+#line 91 "lexanal.l"
 { count(); return('-'); }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 93 "lexanal.l"
+#line 92 "lexanal.l"
 { count(); return('+'); }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 94 "lexanal.l"
+#line 93 "lexanal.l"
 { count(); return('*'); }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 95 "lexanal.l"
+#line 94 "lexanal.l"
 { count(); return('/'); }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 96 "lexanal.l"
+#line 95 "lexanal.l"
 { count(); return('%'); }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 97 "lexanal.l"
+#line 96 "lexanal.l"
 { count(); return('<'); }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 98 "lexanal.l"
+#line 97 "lexanal.l"
 { count(); return('>'); }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 99 "lexanal.l"
+#line 98 "lexanal.l"
 { count(); return('^'); }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 100 "lexanal.l"
+#line 99 "lexanal.l"
 { count(); return('|'); }
 	YY_BREAK
 case 57:
 /* rule 57 can match eol */
 YY_RULE_SETUP
-#line 102 "lexanal.l"
+#line 101 "lexanal.l"
 { count(); }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 103 "lexanal.l"
+#line 102 "lexanal.l"
 { /* ignore bad characters */ }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 105 "lexanal.l"
+#line 104 "lexanal.l"
 ECHO;
 	YY_BREAK
-#line 1112 "lex.yy.c"
+#line 1111 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(C_COMMENT):
 	yyterminate();
@@ -2107,18 +2106,16 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 105 "lexanal.l"
+#line 104 "lexanal.l"
 
 
 
-yywrap()
+int yywrap(void )
 {
 	return(1);
 }
 
-
-
-count()
+void count( void )
 {
 	int i;
 
@@ -2133,13 +2130,8 @@ count()
 	ECHO;
 }
 
-
-/* the i/o routines depend on f_in and f_out to be opened elsewhere */
-
-
 /* these two dummy routines for lex's debug options */
-allprint() {}
-
-sprint() {} 
+void allprint( void ) {}
+void sprint( void ) {} 
 
 

@@ -162,21 +162,19 @@ int r_debug,			/* debug switch */
 #define NEAR_RANGE   20
 #define FAR_RANGE    40
   
-/* declare the intrinsic functions, all must push a long value on the stack */
-/* these functions don't return a long, but declared long for notation */
-long c_scan();    /* scan(degree,res);  >0 = robot distance, 0 = nothing */
-long c_cannon();  /* cannon(degree,dist); fire cannon */
-long c_drive();   /* drive(degree,speed); speed 0-100 in % */
-long c_damage();  /* damage(); = current damage in % */
-long c_speed();   /* speed(); = current speed */ 
-long c_loc_x();   /* loc_x(); = current x location */
-long c_loc_y();   /* loc_y(); = current y location */
-long c_rand();    /* rand(limit); = 0 -- limit (2**15)-1 */
-long c_sin();     /* sin(degree); = sin * 100000 */
-long c_cos();     /* cos(degree); = cos * 100000 */
-long c_tan();     /* tan(degree); = tan * 100000 */
-long c_atan();    /* atan(ratio); = degree */
-long c_sqrt();    /* sqrt(x); = square root */
+void c_scan( void );
+void c_cannon( void );
+void c_drive( void );
+void c_damage( void );
+void c_speed( void );
+void c_loc_x( void );
+void c_loc_y( void );
+void c_rand( void );
+void c_sin( void );
+void c_cos( void );
+void c_tan( void );
+void c_atan( void );
+void c_sqrt( void );
 
 /* declare instrinsic function table */
 #ifndef INIT
@@ -184,12 +182,12 @@ extern
 #endif
 struct intrin {
   char *n;
-  long (*f)();
+  void (*f)(void);
 } intrinsics[20]
 
 #ifdef INIT
  = {
-  {"*dummy*",	(long (*)()) 0},
+  {"*dummy*",	(void (*)()) 0},
   {"scan",	c_scan},
   {"cannon",	c_cannon},
   {"drive",	c_drive},
@@ -203,9 +201,64 @@ struct intrin {
   {"tan",	c_tan},
   {"atan",	c_atan},
   {"sqrt",	c_sqrt},
-  {"",		(long (*)()) 0} 
+  {"",		(void (*)()) 0} 
  }
 #endif
 ;
 
 /* end of crobots.h header */
+
+void robot_stat( int n );
+void decinstr(struct instr *code);
+void binaryop(int op);
+void dumpvar(long *pool,int size);
+void robot_go(struct robot *r);
+void rand_pos( int n );
+void end_disp( void );
+void draw_field( void );
+void plot_robot( int n );
+void plot_miss( int r, int n);
+void plot_exp(int r, int n);
+void show_cycle( long l );
+void init_disp( void );
+void update_disp( void );
+void count_miss( int i, int j ) ;
+void init_comp( void ) ;
+int reset_comp( void ) ;
+int new_func( void );
+void end_func( void ) ;
+int allocvar(char *s, char *pool);
+int efetch( int offset );
+int estore( int offset, int operator );
+int econst( long c );
+void dumpoff( char *pool );
+int findvar(char *s, char *pool);
+int stackid( char *id, char *stack, int *ptr );
+int popid( char *id, char *stack, int *ptr );
+int poolsize( char *pool );
+int ebinop( int c );
+int efcall( int c );
+int eretsub( void );
+int ebranch( void );
+int echop( void );
+int eframe( void );
+int new_if( void );
+int else_part( void );
+void close_if( void );
+int new_while( void );
+int while_expr( void );
+int close_while( void );
+void decompile( struct instr *code );
+void printop( int op );
+void yyerror( char *s );
+int yywrap( void );
+void count( void );
+void allprint( void );
+void sprint( void );
+
+void cpu_trace( char *f );
+void catch_int( void );
+
+void comp( char **f, int n );
+void play( char **f, int n );
+void match( int m, long l, char **f, int n );

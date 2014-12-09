@@ -23,8 +23,7 @@
 
 /* yyerror - simple error message on parser failure */
 
-yyerror(s)
-char *s;
+void yyerror( char *s )
 {
   int i;
   r_flag = 1;
@@ -42,7 +41,7 @@ char *s;
 /* init_comp - initializes the compiler for one file */
 /* assumes robot structure allocated and pointed to by cur->robot */
 
-init_comp() 
+void init_comp( void ) 
 {
   register int i;
 
@@ -102,7 +101,7 @@ init_comp()
 /* reset_comp - resets the compiler for another file */
 /* completes the robot structure */
 
-reset_comp() 
+int reset_comp( void ) 
 {
   int i, j;
   int found = 0;
@@ -204,7 +203,7 @@ reset_comp()
 
 /* new_func - reset the compiler for a new function within the same file */
 
-new_func()
+int new_func( void )
 {
   register int i;
 
@@ -238,7 +237,7 @@ new_func()
 
 /* end_func - cleanup the end of a function */
 
-end_func() 
+void end_func( void ) 
 {
   register int i;
 
@@ -272,10 +271,7 @@ end_func()
 
 /* allocvar - allocates a variable in a pool, returns offset */
 
-allocvar(s,pool) 
-
-char s[];
-char *pool;
+int allocvar(char *s, char *pool) 
 {
   register int i;
 
@@ -296,10 +292,7 @@ char *pool;
 
 /* findvar - returns offset of variable in a pool */
 
-findvar(s,pool)
-
-char s[];
-char *pool;
+int findvar(char *s, char *pool)
 {
   register int i;
 
@@ -313,12 +306,7 @@ char *pool;
 
 
 /* stackid - stacks an identifier, note pointer to stack offset */
-
-stackid(id,stack,ptr)
-
-char id[];
-char *stack;
-int *ptr;
+int stackid( char *id, char *stack, int *ptr )
 {
   if (*ptr < MAXSYM - 1) {
     (*ptr)++;				/* the ptr itself is incremented */
@@ -334,12 +322,7 @@ int *ptr;
 
 
 /* popid - unstacks an identifier, note pointer to stack offset */
-
-popid(id,stack,ptr)
-
-char id[];
-char *stack;
-int *ptr;
+int popid( char *id, char *stack, int *ptr )
 {
   if (*ptr > 0) {
     strcpy(id,stack + (*ptr * ILEN));
@@ -357,10 +340,7 @@ int *ptr;
 
 
 /* poolsize - returns the size of a pool */
-
-poolsize(pool)
-
-char *pool;
+int poolsize( char *pool )
 {
   register int i;
 
@@ -378,10 +358,7 @@ char *pool;
 
 
 /* dumpoff - print a table of names and offsets in a symbol pool */
-
-dumpoff(pool)
-
-char *pool;
+void dumpoff( char *pool )
 {
   register int i;
   int count = 0;
@@ -402,9 +379,7 @@ char *pool;
 
 /* efetch - emit a fetch instruction */
 
-efetch(offset)
-
-int offset;
+int efetch( int offset )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -421,10 +396,7 @@ int offset;
 
 /* estore - emit a store instruction */
 
-estore(offset, operator)
-
-int offset;
-int operator;
+int estore( int offset, int operator )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -441,14 +413,12 @@ int operator;
 
 
 /* econst - emit a constant instruction */
-
-econst(c)
-
-long c;
+int econst( long c )
 {
-  if (++num_instr == CODESPACE) {
+  if (++num_instr == CODESPACE) 
+  {
     r_flag = 1;
-printf("\n\n**econst*\n\n");
+	printf("\n\n**econst*\n\n");
     return (0);
   }
   instruct->ins_type = CONST;
@@ -459,10 +429,7 @@ printf("\n\n**econst*\n\n");
 
 
 /* ebinop - emit a binop instruction */
-
-ebinop(c)
-
-int c;
+int ebinop( int c )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -478,10 +445,7 @@ int c;
 
 
 /* efcall - emit a fcall instruction */
-
-efcall (c)
-
-int c;
+int efcall( int c )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -497,9 +461,7 @@ int c;
 
 
 /* eretsub - emit a retsub instruction */
-
-eretsub()
-
+int eretsub( void )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -514,9 +476,7 @@ eretsub()
 
 
 /* ebranch - emit a  branch instruction */
-
-ebranch()
-
+int ebranch( void )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -532,9 +492,7 @@ ebranch()
 
 
 /* echop - emit a chop instruction */
-
-echop()
-
+int echop( void )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -549,9 +507,7 @@ echop()
 
 
 /* eframe - emit a stack frame instruction */
-
-eframe()
-
+int eframe( void )
 {
   if (++num_instr == CODESPACE) {
     r_flag = 1;
@@ -566,9 +522,7 @@ eframe()
 
 
 /* new_if - start a nest for an if statement */
-
-new_if()
-
+int new_if( void )
 {
   if (if_nest == NESTLEVEL) {
     fprintf(f_out,"\n** Error ** 'if' nest level exceeded\n");
@@ -591,9 +545,7 @@ new_if()
 
 
 /* else_part - the else part of an if-then-else */
-
-else_part()
-
+int else_part( void )
 {	
   /* setup a unconditional branch around the else part */
   if (!econst(0L))
@@ -614,9 +566,7 @@ else_part()
 
 
 /* close_if - close out an if nest */
-
-close_if()
-
+void close_if( void )
 {
   /* fix the not-else branch saved in else_part() */
   (ifs + if_nest)->fix_true->u.br = instruct;
@@ -626,9 +576,7 @@ close_if()
 
 
 /* new_while - start a nest for a new while statement */
-
-new_while()
-
+int new_while( void )
 {
   if (while_nest == NESTLEVEL) {
     fprintf(f_out,"\n** Error ** 'while' nest level exceeded\n");
@@ -647,9 +595,7 @@ new_while()
 
 
 /* while_expr - while expression loop fix */
-
-while_expr()
-
+int while_expr( void )
 {
   if (!ebranch())
     return (0);
@@ -663,9 +609,7 @@ while_expr()
 
 
 /* close_while - close out the while nest */
-
-close_while()
-
+int close_while( void )
 {
   /* emit an unconditional branch */
   if (!econst(0L))
@@ -687,10 +631,7 @@ close_while()
 
 
 /* decompile - print machine code */
-
-decompile(code)
-
-struct instr *code;
+void decompile( struct instr *code )
 {
 
   while (code->ins_type != NOP) {
@@ -702,26 +643,22 @@ struct instr *code;
 
 
 /* decinstr - print one instruct; watch out for pointer to long conversion! */
-
-decinstr(code)
-
-struct instr *code;
+void decinstr(struct instr *code)
 {
 
   fprintf(f_out,"%8ld : ",(long) code);	/* this could be flakey */
   switch (code->ins_type) {
     case FETCH:
       if (code->u.var1 & EXTERNAL) 
-	fprintf(f_out,"fetch   %d external\n",code->u.var1 & ~EXTERNAL);
+	fprintf(f_out,"fetch   %hd external\n",code->u.var1 & ~EXTERNAL);
       else
-	fprintf(f_out,"fetch   %d local\n",code->u.var1);
+	fprintf(f_out,"fetch   %hd local\n",code->u.var1);
       break;
     case STORE:
       if (code->u.a.var2 & EXTERNAL)
-	fprintf(f_out,"store   %d external, ",
-		code->u.a.var2 & ~EXTERNAL);
+	fprintf(f_out,"store   %hd external, ",code->u.a.var2 & ~EXTERNAL);
       else
-	fprintf(f_out,"store   %d local, ",code->u.a.var2);
+	fprintf(f_out,"store   %hd local, ",code->u.a.var2);
       printop(code->u.a.a_op);
       fprintf(f_out,"\n");
       break;
@@ -734,7 +671,7 @@ struct instr *code;
       fprintf(f_out,"\n");
       break;
     case FCALL:
-      fprintf(f_out,"fcall   %d\n",code->u.var1);
+      fprintf(f_out,"fcall   %hd\n",code->u.var1);
       break;
     case RETSUB:
       fprintf(f_out,"retsub\n");
@@ -757,9 +694,7 @@ struct instr *code;
 
 /* printop - print a binary operation code */
 
-printop(op)
-
-int op;
+void printop( int op )
 {
 
   switch (op) {
@@ -805,7 +740,7 @@ int op;
       break;
 
     case  '%':
-      fprintf(f_out,"%");
+      fprintf(f_out,"%%");
       break;
 
     case  LEFT_OP:
@@ -849,7 +784,7 @@ int op;
       break;
 
     case  MOD_ASSIGN:
-      fprintf(f_out,"%=");
+      fprintf(f_out,"%%=");
       break;
 
     case  ADD_ASSIGN:

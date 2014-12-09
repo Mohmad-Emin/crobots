@@ -802,28 +802,32 @@ case 1:
 #line 76 "grammar.y"
 { /* printf("IDENTIFIER\n"); */
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
-		    if (findvar(last_ident,func_tab) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+                  {
+		    if (findvar(last_ident,func_tab) == -1) 
+                    {
 		      /* printf("\n***undeclared %s***\n",last_ident); */
 		      undeclared++;
 		    }
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+	        } else 
+		{
 		    work |= EXTERNAL;
-		if (!efetch(work))
-		  return(1);
+		}
+		if (!efetch(work)) return(1);
 		}
 break;
 case 2:
-#line 91 "grammar.y"
+#line 95 "grammar.y"
 { /*printf("CONSTANT\n"); */
 		 if (!econst(kk))
 		   return(1);
 		}
 break;
 case 5:
-#line 101 "grammar.y"
+#line 105 "grammar.y"
 { /* printf("FCALL\n"); */
 		popid(func_ident,func_stack,&func_off); /* note ptr to off */
 		if ((work = findvar(func_ident,func_tab)) == -1) {
@@ -836,7 +840,7 @@ case 5:
 		}
 break;
 case 6:
-#line 112 "grammar.y"
+#line 116 "grammar.y"
 { /* printf("FCALL\n"); */
 		popid(func_ident,func_stack,&func_off); /* note ptr to off */
 		if ((work = findvar(func_ident,func_tab)) == -1) {
@@ -849,41 +853,50 @@ case 6:
 		}
 break;
 case 7:
-#line 123 "grammar.y"
+#line 127 "grammar.y"
 { /* printf("POSTFIX-INC\n"); */
 		/* this is wrong!  same as infix increment */
 		postfix++;
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+                  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
-		    work |= EXTERNAL;
+                }
+		else 
+                {		    
+                  work |= EXTERNAL;
+                }
 		if(!estore(work,ADD_ASSIGN))
 		  return(1);
 		}
 break;
 case 8:
-#line 138 "grammar.y"
+#line 147 "grammar.y"
 { /* printf("POSTFIX-DEC\n"); */
 		/* this is wrong!  same as infix decrement */
 		postfix++;
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+		  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,SUB_ASSIGN))
 		  return(1);
 		}
 break;
 case 9:
-#line 156 "grammar.y"
+#line 169 "grammar.y"
 { /* printf("FCALL-START\n"); */
 		stackid(last_ident,func_stack,&func_off); /* note ptr to off */
 		if (!eframe())
@@ -891,37 +904,45 @@ case 9:
 		}
 break;
 case 13:
-#line 171 "grammar.y"
+#line 184 "grammar.y"
 { /* printf("INFIX-INC\n"); */
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+	  	  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,ADD_ASSIGN))
 		  return(1);
 		}
 break;
 case 14:
-#line 184 "grammar.y"
+#line 201 "grammar.y"
 { /* printf("INFIX-DEC\n"); */
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+		  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,SUB_ASSIGN))
 		  return(1);
 		}
 break;
 case 15:
-#line 197 "grammar.y"
+#line 218 "grammar.y"
 { /* printf("UNARY-OP\n"); */
 		/* note special tokens defined only to pass to interpreter */
 		un_op = *(op_stack + op_off);
@@ -945,170 +966,174 @@ case 15:
 		}
 break;
 case 16:
-#line 222 "grammar.y"
+#line 243 "grammar.y"
 { /* printf("UNARY-OP\n"); */
 		op_off++;
 		*(op_stack + op_off) = '-';
 		}
 break;
 case 17:
-#line 227 "grammar.y"
+#line 248 "grammar.y"
 { 
 		op_off++;
 		*(op_stack + op_off) = '!';
 		}
 break;
 case 18:
-#line 232 "grammar.y"
+#line 253 "grammar.y"
 { 
 		op_off++;
 		*(op_stack + op_off) = '~';
 		}
 break;
 case 22:
-#line 246 "grammar.y"
+#line 267 "grammar.y"
 { /* printf("MULTIPLY\n"); */
 		if (!ebinop('*'))
 		  return(1);
 		}
 break;
 case 23:
-#line 251 "grammar.y"
+#line 272 "grammar.y"
 { /*printf("DIVIDE\n"); */
 		if (!ebinop('/'))
 		  return(1);
 		}
 break;
 case 24:
-#line 256 "grammar.y"
+#line 277 "grammar.y"
 { /* printf("MOD\n"); */
 		if (!ebinop('%'))
 		  return(1);
 		}
 break;
 case 26:
-#line 265 "grammar.y"
+#line 286 "grammar.y"
 { /* printf("ADD\n"); */
 		if (!ebinop('+'))
 		  return(1);
 		}
 break;
 case 27:
-#line 270 "grammar.y"
+#line 291 "grammar.y"
 { /* printf("SUBTRACT\n"); */
 		if (!ebinop('-'))
 		  return(1);
 		}
 break;
 case 29:
-#line 279 "grammar.y"
+#line 300 "grammar.y"
 { /* printf("SHIFT-LEFT\n"); */
 		if (!ebinop(LEFT_OP))
 		  return(1);
 		}
 break;
 case 30:
-#line 284 "grammar.y"
+#line 305 "grammar.y"
 { /* printf("SHIFT-RIGHT\n"); */
 		if (!ebinop(RIGHT_OP))
 		  return(1);
 		}
 break;
 case 32:
-#line 293 "grammar.y"
+#line 314 "grammar.y"
 { /* printf("LESS-THAN\n"); */
 		if (!ebinop('<'))
 		  return(1);
 		}
 break;
 case 33:
-#line 298 "grammar.y"
+#line 319 "grammar.y"
 { /* printf("GREATER-THAN\n"); */
 		if (!ebinop('>'))
 		  return(1);
 		}
 break;
 case 34:
-#line 303 "grammar.y"
+#line 324 "grammar.y"
 { /*printf("LESS-EQUAL\n"); */
 		if (!ebinop(LE_OP))
 		  return(1);
 		}
 break;
 case 35:
-#line 308 "grammar.y"
+#line 329 "grammar.y"
 { /* printf("GREATER-EQUAL\n"); */
 		if (!ebinop(GE_OP))
 		  return(1);
 		}
 break;
 case 37:
-#line 317 "grammar.y"
+#line 338 "grammar.y"
 { /* printf("EQUAL\n"); */
 		if (!ebinop(EQ_OP))
 		  return(1);
 		}
 break;
 case 38:
-#line 322 "grammar.y"
+#line 343 "grammar.y"
 { /* printf("NOT-EQUAL\n"); */
 		if (!ebinop(NE_OP))
 		  return(1);
 		}
 break;
 case 40:
-#line 331 "grammar.y"
+#line 352 "grammar.y"
 { /* printf("AND\n"); */
 		if (!ebinop('&'))
 		  return(1);
 		}
 break;
 case 42:
-#line 340 "grammar.y"
+#line 361 "grammar.y"
 { /* printf("EXCLUSIVE-OR\n"); */
 		if (!ebinop('^'))
 		  return(1);
 		}
 break;
 case 44:
-#line 349 "grammar.y"
+#line 370 "grammar.y"
 { /* printf("INCLUSIVE-OR\n"); */
 		if (!ebinop('|'))
 		  return(1);
 		}
 break;
 case 46:
-#line 358 "grammar.y"
+#line 379 "grammar.y"
 { /* printf("LOGICAL-AND\n"); */
 		if (!ebinop(AND_OP))
 		  return(1);
 		}
 break;
 case 48:
-#line 367 "grammar.y"
+#line 388 "grammar.y"
 { /* printf("LOGICAL-OR\n"); */
 		if (!ebinop(OR_OP))
 		  return(1);
 		}
 break;
 case 51:
-#line 380 "grammar.y"
+#line 401 "grammar.y"
 { /* printf("ASSIGNMENT\n"); */
 		/* func_ident used as temp storage */
 		popid(func_ident,var_stack,&var_off); /* note ptr to off */
 		if ((work = findvar(func_ident,var_tab)) == -1)
-		  if ((work = findvar(func_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(func_ident,ext_tab)) == -1) 
+		  {
 		    work = allocvar(func_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,*(op_stack + op_off)))
 		  return(1);
 		op_off--;
 		}
 break;
 case 52:
-#line 397 "grammar.y"
+#line 422 "grammar.y"
 { /* printf("ASSIGNMENT-LVAL\n"); */
 		stackid(last_ident,var_stack,&var_off); /* note ptr to off */
 		op_off++;
@@ -1116,51 +1141,51 @@ case 52:
 		}
 break;
 case 53:
-#line 406 "grammar.y"
+#line 431 "grammar.y"
 { work =  '=';}
 break;
 case 54:
-#line 408 "grammar.y"
+#line 433 "grammar.y"
 { work = MUL_ASSIGN;}
 break;
 case 55:
-#line 410 "grammar.y"
+#line 435 "grammar.y"
 { work = DIV_ASSIGN;}
 break;
 case 56:
-#line 412 "grammar.y"
+#line 437 "grammar.y"
 { work = MOD_ASSIGN;}
 break;
 case 57:
-#line 414 "grammar.y"
+#line 439 "grammar.y"
 { work = ADD_ASSIGN;}
 break;
 case 58:
-#line 416 "grammar.y"
+#line 441 "grammar.y"
 { work = SUB_ASSIGN;}
 break;
 case 59:
-#line 418 "grammar.y"
+#line 443 "grammar.y"
 { work = LEFT_ASSIGN;}
 break;
 case 60:
-#line 420 "grammar.y"
+#line 445 "grammar.y"
 { work = RIGHT_ASSIGN;}
 break;
 case 61:
-#line 422 "grammar.y"
+#line 447 "grammar.y"
 { work = AND_ASSIGN;}
 break;
 case 62:
-#line 424 "grammar.y"
+#line 449 "grammar.y"
 { work = XOR_ASSIGN;}
 break;
 case 63:
-#line 426 "grammar.y"
+#line 451 "grammar.y"
 { work = OR_ASSIGN;}
 break;
 case 74:
-#line 453 "grammar.y"
+#line 478 "grammar.y"
 { /* printf("INITIALIZER\n"); */
 		fprintf(f_out,"\n**Warning** unsupported initializer\n");
 		/* get rid of constant placed on stack */
@@ -1169,7 +1194,7 @@ case 74:
 		}
 break;
 case 81:
-#line 478 "grammar.y"
+#line 503 "grammar.y"
 { /* printf("VARIABLE-DECLARE\n"); */
 		if (in_func) {
 		  if (findvar(last_ident,var_tab) == -1)
@@ -1182,86 +1207,86 @@ case 81:
 		}
 break;
 case 82:
-#line 489 "grammar.y"
+#line 514 "grammar.y"
 { /* printf("FUNCTION-DECLARE\n"); */
 		if (new_func() == -1)
 		  return (1); /* exit the parser */
 		}
 break;
 case 83:
-#line 494 "grammar.y"
+#line 519 "grammar.y"
 { /* printf("FUNCTION-DECLARE\n"); */
 		if (new_func() == -1)
 		  return (1); /* exit the parser */
 		}
 break;
 case 84:
-#line 502 "grammar.y"
+#line 527 "grammar.y"
 { /* printf("FUNCTION-DEF-START\n"); */
 		strcpy(func_ident,last_ident);
 		}
 break;
 case 87:
-#line 514 "grammar.y"
+#line 539 "grammar.y"
 { /* printf("PARAMETER-DECLARE\n"); */
 		allocvar(last_ident,var_tab);
 		num_parm++;
 		}
 break;
 case 122:
-#line 595 "grammar.y"
+#line 620 "grammar.y"
 { /* printf("CHOP\n"); */
 		if (!echop())
 		  return(1);
 		}
 break;
 case 125:
-#line 608 "grammar.y"
+#line 633 "grammar.y"
 { /* printf("IF-THEN\n"); */
 		else_part();
 		close_if();
 		}
 break;
 case 126:
-#line 616 "grammar.y"
+#line 641 "grammar.y"
 { /* printf("IF-THEN-ELSE\n"); */
 		close_if();
 		}
 break;
 case 127:
-#line 623 "grammar.y"
+#line 648 "grammar.y"
 { /* printf("IF-CLAUSE\n"); */
 		if (!new_if())
 		  return (1); /* exit parser */
 		}
 break;
 case 128:
-#line 631 "grammar.y"
+#line 656 "grammar.y"
 { /* printf("ELSE-CLAUSE\n"); */
 		else_part();
 		}
 break;
 case 129:
-#line 638 "grammar.y"
+#line 663 "grammar.y"
 { /* printf("WHILE\n"); */
 		close_while();
 		}
 break;
 case 130:
-#line 645 "grammar.y"
+#line 670 "grammar.y"
 { /* printf("WHILE-TOKEN\n"); */
 		if (!new_while())
 		  return (1);  /* exit the parser */
 		}
 break;
 case 131:
-#line 653 "grammar.y"
+#line 678 "grammar.y"
 { /* printf("WHILE-CLAUSE\n"); */
 		while_expr();
 		}
 break;
 case 132:
-#line 660 "grammar.y"
+#line 685 "grammar.y"
 { /* printf("BREAK\n"); */
 		/* breaks can be handled by building a instruct chain */
 		/* as part of the while_nest structures and patching them */
@@ -1270,7 +1295,7 @@ case 132:
 		}
 break;
 case 133:
-#line 667 "grammar.y"
+#line 692 "grammar.y"
 { /* printf("RETURN-NOEXPR\n"); */
 		/* all functions must return a value */
 		if (!econst(1L))
@@ -1280,14 +1305,14 @@ case 133:
 		}
 break;
 case 134:
-#line 675 "grammar.y"
+#line 700 "grammar.y"
 { /* printf("RETURN\n"); */
 		if (!eretsub())
 		  return(1);
 		}
 break;
 case 137:
-#line 688 "grammar.y"
+#line 713 "grammar.y"
 { /* printf("FUNCTION-DEFINITION\n"); */
 		/* all functions must return a value */
 		if (!econst(1L))
@@ -1298,11 +1323,11 @@ case 137:
 		}
 break;
 case 138:
-#line 697 "grammar.y"
+#line 722 "grammar.y"
 { /* printf("EXTERNAL-DECLARE\n"); */
 		}
 break;
-#line 1306 "y.tab.c"
+#line 1331 "y.tab.c"
     }
     yyssp -= yym;
     yystate = *yyssp;

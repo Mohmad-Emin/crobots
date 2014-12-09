@@ -75,17 +75,21 @@ primary_expr
 	: identifier
 		{ /* printf("IDENTIFIER\n"); */
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
-		    if (findvar(last_ident,func_tab) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+                  {
+		    if (findvar(last_ident,func_tab) == -1) 
+                    {
 		      /* printf("\n***undeclared %s***\n",last_ident); */
 		      undeclared++;
 		    }
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+	        } else 
+		{
 		    work |= EXTERNAL;
-		if (!efetch(work))
-		  return(1);
+		}
+		if (!efetch(work)) return(1);
 		}
 	| CONSTANT
 		{ /*printf("CONSTANT\n"); */
@@ -126,11 +130,16 @@ postfix_expr
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+                  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
-		    work |= EXTERNAL;
+                }
+		else 
+                {		    
+                  work |= EXTERNAL;
+                }
 		if(!estore(work,ADD_ASSIGN))
 		  return(1);
 		}
@@ -141,11 +150,15 @@ postfix_expr
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+		  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,SUB_ASSIGN))
 		  return(1);
 		}
@@ -172,11 +185,15 @@ unary_expr
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+	  	  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,ADD_ASSIGN))
 		  return(1);
 		}
@@ -185,11 +202,15 @@ unary_expr
 		if (!econst(1L))
 		  return(1);
 		if ((work = findvar(last_ident,var_tab)) == -1)
-		  if ((work = findvar(last_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(last_ident,ext_tab)) == -1) 
+		  {
 		    work = allocvar(last_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,SUB_ASSIGN))
 		  return(1);
 		}
@@ -381,11 +402,15 @@ assignment_expr
 		/* func_ident used as temp storage */
 		popid(func_ident,var_stack,&var_off); /* note ptr to off */
 		if ((work = findvar(func_ident,var_tab)) == -1)
-		  if ((work = findvar(func_ident,ext_tab)) == -1) {
+		{
+		  if ((work = findvar(func_ident,ext_tab)) == -1) 
+		  {
 		    work = allocvar(func_ident,var_tab);
 		  }
-		  else
+		}else
+		{
 		    work |= EXTERNAL;
+		}
 		if (!estore(work,*(op_stack + op_off)))
 		  return(1);
 		op_off--;

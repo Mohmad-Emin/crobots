@@ -182,8 +182,7 @@ struct {
 /* move_robots - update the postion of all robots */
 /*               parm 'displ' controls call to field display */
 
-move_robots(displ)
-int displ;
+void move_robots(int displ)
 {
   register int i, n;
   long lsin(), lcos();
@@ -235,10 +234,9 @@ int displ;
     /* update distance traveled on this heading, x & y */
     if (robots[i].speed > 0) {
       robots[i].range += (robots[i].speed / CLICK) * ROBOT_SPEED;
-      robots[i].x = (int) (robots[i].org_x + (int)
-	    (lcos(robots[i].heading) * (long)(robots[i].range/CLICK) / 10000L));
-      robots[i].y = (int) (robots[i].org_y + (int)
-	    (lsin(robots[i].heading) * (long)(robots[i].range/CLICK) / 10000L));
+      /* BJ CHECK THIS OUT! */
+      robots[i].x = (int) (robots[i].org_x + (int)(lcos(robots[i].heading) * (long)(robots[i].range/CLICK) / 10000L));
+      robots[i].y = (int) (robots[i].org_y + (int)(lsin(robots[i].heading) * (long)(robots[i].range/CLICK) / 10000L));
 
       /* check for collision into another robot, less than 1 meter apart */
       for (n = 0; n < MAXROBOTS; n++) {
@@ -293,8 +291,7 @@ int displ;
 /* move_miss - updates all missile positions */
 /*             parm 'displ' control display */
 
-move_miss(displ)
-int displ;
+void move_miss(int displ)
 {
   register int r, i;
   int n, j;
