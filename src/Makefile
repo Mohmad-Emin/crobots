@@ -1,3 +1,4 @@
+CC = gcc
 # makefile for crobots
 
 OBJS =  main.o grammar.o lexanal.o compiler.o cpu.o intrins.o display.o screen.o motion.o
@@ -10,7 +11,7 @@ DOSA = main.c grammar.c lexanal.c compiler.c cpu.c intrins.c display.c screena.c
 
 # Xenix cc flags: optimize(O), omit stack checking(K), separate text and data(i)
 
-CFLAGS = -O2 -DUNIX
+CFLAGS = -O2 -Wall -DUNIX -g
 LIBS = -lm -lcurses
 
 # note - grammar.c and lexanal.c: both yacc (grammar.y) and lex (lexanal.l)
@@ -21,7 +22,7 @@ LIBS = -lm -lcurses
 #  confused when '#ifdef symbol .... #endif' are nested.
 
 crobots: 	$(OBJS)
-		cc -s $(CFLAGS) $(OBJS) -o crobots $(LIBS)
+		cc $(CFLAGS) $(OBJS) -o crobots $(LIBS)
 
 main.o: 	crobots.h main.c
 		cc $(CFLAGS) -c main.c
@@ -58,11 +59,11 @@ motion.o:	crobots.h motion.c
 		cc $(CFLAGS) -c motion.c
 	
 dos:
-		cc -s -dos -K -i -O -DDOS $(DOS) -o crobotsx.exe -lm
+		cc  -dos -K -i -O -DDOS $(DOS) -o crobotsx.exe -lm
 		/bin/rm *.o
 
 dosa:
-		cc -s -dos -K -i -O -DDOS $(DOSA) -o crobotsa.exe -lm
+		cc  -dos -K -i -O -DDOS $(DOSA) -o crobotsa.exe -lm
 		/bin/rm *.o
 print:
 		pr -t $(SOURCES) | lpr
